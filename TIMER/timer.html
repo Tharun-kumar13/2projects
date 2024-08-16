@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background-color: #edeaff;
+        color: #fff;
+    }
+
+    .stopwatch {
+        position: relative;
+        background-color: #222;
+        text-align: center;
+        width: 600px;
+        height: 300px;
+        margin-top: auto;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 50px 10px;
+        box-shadow: 10px 10px 10px rgb(67, 62, 62);
+    }
+
+    #text {
+        position: relative;
+        top: 30px;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .icons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+
+    }
+
+
+    .icons img {
+        width: 80px;
+        margin: 20px;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+    img:active {
+        transition: 0.5s;
+        scale: 1.2;
+    }
+</style>
+
+<body>
+
+    <div>
+        <div class="stopwatch">
+            <h2 id="text">00:00:00</h2>
+            <div class="icons">
+                <img src="./images/stop.png" onclick="stop()">
+                <img src="./images/start.png" onclick="watch()" />
+                <img src="./images/reset.png" onclick="restart()" />
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let [seconds, minutes, hour] = [0, 0, 0]
+    var Time = document.getElementById("text");
+    var timer;
+    var time = 1;
+    function Stopwatch() {
+        let h = hour < 10 ? '0' + hour : hour;
+        let m = minutes < 10 ? "0" + minutes : minutes;
+        let s = seconds < 10 ? "0" + seconds : seconds
+        seconds++
+        console.log(seconds)
+        if (seconds == 60) {
+            minutes++
+            seconds = 0
+
+            if (minutes == 60) {
+                hour++
+                minutes = 0
+            }
+        }
+
+
+        Time.innerHTML = h + ":" + m + ":" + s;
+    }
+
+    function watch() {
+        console.log("clicked")
+        if (time != 1) {
+            clearInterval(timer)
+            time = 1
+
+        }
+        timer = setInterval(Stopwatch, 1000);
+        time = 0
+
+    }
+    function stop() {
+        console.log("timer" + time)
+        if (time == 1) {
+            timer = setInterval(Stopwatch, 1000);
+            time = 0
+        }
+        else {
+            clearInterval(timer)
+            time = 1
+        }
+    }
+    function restart() {
+        [seconds, minutes, hour] = [0, 0, 0]
+        Time.innerHTML = "00:00:00"
+        clearInterval(timer)
+    }
+
+
+</script>
+
+</html>

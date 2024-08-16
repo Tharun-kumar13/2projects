@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h2>To Do List</h2>
+        <input  name="list" id="list" placeholder="Enter work to do" onkeydown="if(event.key =='Enter'){
+            save();
+        }
+        "/>
+        <button  onclick="save()">ADD</button>
+        <div class="work"></div>
+    </div>
+    <script>
+        const List=[]
+        function save(){
+            const  li = document.getElementById("list")
+            const name= li.value
+            List.push(name)
+            console.log(List)
+            li.value='';
+            render();
+
+        }
+        function render()
+        {
+        const workEl = document.querySelector(".work")
+        let i = 0;
+        
+        var todohtml = ' ';
+        for( i =0 ; i<List.length ; i++){
+            const todo = List[i];
+              const html =`<p>
+                ${todo}
+                <button onclick="
+                List.splice(${i},1);
+                render();
+                ">Delete</button>
+                </p>`
+            todohtml= html;
+        
+        }
+        workEl.innerHTML+=todohtml
+        
+        }
+
+    </script>
+</body>
+</html>
